@@ -8,7 +8,7 @@ from .service import words_repeated, validate_url
 # Create your views here.
 
 def home(request):
-    return HttpResponse("Welcome to the API!")
+    return render(request, 'word/index.html')
 
 class WordsRepeated(APIView):
     def post(self, request):
