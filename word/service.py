@@ -1,4 +1,6 @@
-def words_repeat(url):
+from urllib.parse import urlparse
+
+def words_repeated(url):
     comas = url.replace('/',' ')
     _guion = comas.replace('-',' ')
     url_arr = _guion.split()
@@ -11,3 +13,10 @@ def words_repeat(url):
 
     words_repeat = sorted(dict_repeated.items(), key=lambda x: x[1], reverse=True)    
     return dict(words_repeat)
+
+def validate_url(url):
+    try:
+        validate = urlparse(url)
+        return all([validate.scheme, validate.netloc, validate.path])
+    except:
+        return False

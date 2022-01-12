@@ -3,18 +3,21 @@ from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .service import words_repeat
+from .service import words_repeated, validate_url
 
 # Create your views here.
 
 def home(request):
     return HttpResponse("Welcome to the API!")
 
-class WordsRepetead(APIView):
+class WordsRepeated(APIView):
     def post(self, request):
         try:
-            url = request.data['url']        
-            return Response(words_repeat(url))
+            url = request.data['url']            
+            if validate_url(url):
+                return Response(words_repeated(url))
+            else:
+                return HttpResponse('invalid url')
         except AssertionError:
             return HttpResponse("a error has ocurred")
         except KeyError:
